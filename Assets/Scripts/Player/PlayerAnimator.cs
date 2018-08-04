@@ -7,13 +7,19 @@ public class PlayerAnimator : PlayerBase
 {
 	protected override void Start ()
     {
-        PlayerState.Subscribe(_ =>
+        base.Start();
+        RXEvent.Instance.playerState.Subscribe(_ =>
         {
             switch(_)
             {
                 case EState.Idle:
+                    Debug.Log("idle");
                     break;
                 case EState.Walk:
+                    animator.SetBool("Walk", true);
+                    break;
+                default:
+                    Debug.Log("other");
                     break;
             }
         });

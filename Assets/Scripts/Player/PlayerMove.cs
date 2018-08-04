@@ -18,12 +18,12 @@ public class PlayerMove : PlayerBase
         base.Start();
 
         InputManager.SingleClickEventHandler += OnRecvSingleClickMsg;
-        move.Subscribe(_ =>
+        RXEvent.Instance.move.Subscribe(pos =>
         {
             if (moveCoroutine != null)
                 StopCoroutine(moveCoroutine);
 
-            moveCoroutine = StartCoroutine(IEMove(_));
+            moveCoroutine = StartCoroutine(IEMove(pos));
         });
 	}
 
@@ -31,13 +31,14 @@ public class PlayerMove : PlayerBase
     {
         yield return null;
         float sqrRemainingDistance = (transform.position - pos).sqrMagnitude;
-        while(sqrRemainingDistance > float.Epsilon)
+
+        RXEvent.Instance.playerState.OnNext(EState.Walk);
+        while (sqrRemainingDistance > float.Epsilon)
         {
             transform.position = Vector3.MoveTowards(transform.position,
                 pos,
                 playerParameters.moveSpeed * Time.deltaTime);
 
-            playerState.OnNext(EState.Walk);
             yield return null;
         }
     }
@@ -46,6 +47,6 @@ public class PlayerMove : PlayerBase
     {
         ray = Camera.main.ScreenPointToRay(gesture.position);
         Physics.Raycast(ray, out raycastHit);
-        move.OnNext(new Vector3(raycastHit.point.x, 0, raycastHit.point.z));
+        RXEvent.Instance.move.OnNext(new Vector3(raycastHit.point.x, 0, raycastHit.point.z));
     }
 }

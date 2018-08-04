@@ -20,19 +20,8 @@ public struct PlayerParameters
 
 public class PlayerBase : MonoBehaviour
 {
-    protected Subject<EState> playerState = new Subject<EState>();
-    protected IObservable<EState> PlayerState
-    {
-        get
-        {
-            return playerState;
-        }
-    }
-
     protected Animator animator = null;
     protected CharacterController characterController = null;
-
-    protected Subject<Vector3> move = new Subject<Vector3>();
     
     protected PlayerParameters playerParameters;
 	// Use this for initialization
@@ -40,8 +29,7 @@ public class PlayerBase : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
-
-
+        
         playerParameters.moveSpeed = 5.0f;
 	}
 }
