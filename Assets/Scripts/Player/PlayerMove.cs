@@ -18,12 +18,19 @@ public class PlayerMove : PlayerBase
         base.Start();
 
         InputManager.SingleClickEventHandler += OnRecvSingleClickMsg;
+        InputManager.DragEventHandler += OnRecvDragEvent;
+
         RXEvent.Instance.move.Subscribe(pos =>
         {
             if (moveCoroutine != null)
                 StopCoroutine(moveCoroutine);
 
             moveCoroutine = StartCoroutine(IEMove(pos));
+        });
+
+        RXEvent.Instance.dragVari.Subscribe(variation =>
+        {
+            characterController.Move(variation);
         });
 	}
 
@@ -48,5 +55,10 @@ public class PlayerMove : PlayerBase
         ray = Camera.main.ScreenPointToRay(gesture.position);
         Physics.Raycast(ray, out raycastHit);
         RXEvent.Instance.move.OnNext(new Vector3(raycastHit.point.x, 0, raycastHit.point.z));
+    }
+
+    private void OnRecvDragEvent(Gesture gesture)
+    {
+        RXEvent.Instance.dragVari.OnNext(new Vector3(gesture.deltaPosition.x, 1, gesture.deltaPosition.y));
     }
 }

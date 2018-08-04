@@ -9,6 +9,7 @@ using UniRx;
 public class InputManager : MonoBehaviour
 {
     public static Action<Gesture> SingleClickEventHandler = null;
+    public static Action<Gesture> DragEventHandler = null;
 
     private Gesture gesture = null;
 
@@ -28,6 +29,13 @@ public class InputManager : MonoBehaviour
                         return;
 
                     SingleClickEventHandler(gesture);
+                }
+                else if(gesture.type == EasyTouch.EvtType.On_Drag)
+                {
+                    if (DragEventHandler == null)
+                        return;
+
+                    DragEventHandler(gesture);
                 }
             });
 	}

@@ -6,6 +6,7 @@ public class RXEvent : Singleton<RXEvent>
 {
     public Subject<EState> playerState = new Subject<EState>();
     public Subject<Vector3> move = new Subject<Vector3>();
+    public Subject<Vector3> dragVari = new Subject<Vector3>();
     protected RXEvent()
     {
 
