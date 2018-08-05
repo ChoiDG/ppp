@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UniRx;
+using UniRx.Triggers;
+
 public class PlayerAnimator : PlayerBase
 {
 	protected override void Start ()

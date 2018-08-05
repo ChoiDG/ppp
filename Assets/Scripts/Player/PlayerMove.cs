@@ -16,7 +16,7 @@ public class PlayerMove : PlayerBase
 	protected override void Start ()
     {
         base.Start();
-
+            
         InputManager.SingleClickEventHandler += OnRecvSingleClickMsg;
         InputManager.DragEventHandler += OnRecvDragEvent;
 
@@ -30,8 +30,10 @@ public class PlayerMove : PlayerBase
 
         RXEvent.Instance.dragVari.Subscribe(variation =>
         {
-            characterController.Move(variation);
+            Debug.Log(variation);
+            //characterController.Move(variation);
         });
+        
 	}
 
     IEnumerator IEMove(Vector3 pos)
@@ -45,7 +47,7 @@ public class PlayerMove : PlayerBase
             transform.position = Vector3.MoveTowards(transform.position,
                 pos,
                 playerParameters.moveSpeed * Time.deltaTime);
-
+            transform.rotation = Quaternion.LookRotation(transform.position);
             yield return null;
         }
     }
