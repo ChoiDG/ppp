@@ -5,7 +5,7 @@ using UnityEngine;
 using UniRx;
 
 using HedgehogTeam.EasyTouch;
-public class PlayerMove : PlayerBase
+public class PlayerMove : MonoBehaviour
 {
     private Ray ray;
     private RaycastHit raycastHit;
@@ -13,10 +13,8 @@ public class PlayerMove : PlayerBase
     private Coroutine moveCoroutine = null;
 
 	// Use this for initialization
-	protected override void Start ()
+	void Start ()
     {
-        base.Start();
-            
         InputManager.SingleClickEventHandler += OnRecvSingleClickMsg;
         InputManager.DragEventHandler += OnRecvDragEvent;
 
@@ -46,7 +44,7 @@ public class PlayerMove : PlayerBase
         {
             transform.position = Vector3.MoveTowards(transform.position,
                 pos,
-                playerParameters.moveSpeed * Time.deltaTime);
+                5.0f * Time.deltaTime);
             transform.rotation = Quaternion.LookRotation(transform.position);
             yield return null;
         }

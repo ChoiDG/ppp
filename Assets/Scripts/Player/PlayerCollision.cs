@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UniRx;
-public class PlayerCollision : PlayerBase
+using UniRx.Triggers;
+public class PlayerCollision : MonoBehaviour
 {
 	// Use this for initialization
-	protected override void Start ()
+	void Start ()
     {
-        RXEvent.Instance.playerCollision.OnCollisionEnterAsObservable()
-            .Subscribe(_ =>
-            {
-                Debug.Log("collider");
-            });
+        this.OnCollisionEnterAsObservable()
+            .Subscribe(_ => Debug.Log("trigger"));
 	}
 }

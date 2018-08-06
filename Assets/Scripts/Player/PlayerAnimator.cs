@@ -5,11 +5,22 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class PlayerAnimator : PlayerBase
+public enum EState
 {
-	protected override void Start ()
+    Idle,
+    Walk,
+    Run,
+    Jump,
+    Die,
+    Fall
+}
+
+public class PlayerAnimator : MonoBehaviour
+{
+    Animator animator = null;
+	void Start ()
     {
-        base.Start();
+        animator = GetComponent<Animator>();
         RXEvent.Instance.playerState.Subscribe(_ =>
         {
             switch(_)

@@ -5,16 +5,6 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public enum EState
-{
-    Idle,
-    Walk,
-    Run,
-    Jump,
-    Die,
-    Fall
-}
-
 public struct PlayerParameters
 {
     public float moveSpeed;

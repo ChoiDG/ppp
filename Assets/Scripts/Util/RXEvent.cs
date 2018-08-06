@@ -13,7 +13,7 @@ public class RXEvent : Singleton<RXEvent>
     public Subject<Collider> collider = new Subject<Collider>();
     public IObservable<Collider> colliderObservable { get { return collider.AsObservable(); } }
 
-    public ObservableCollisionTrigger playerCollision;
+    public ObservableCollisionTrigger playerCollision = new ObservableCollisionTrigger();
     protected RXEvent()
     {
 
